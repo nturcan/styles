@@ -20,7 +20,7 @@
   <macro name="editor">
     <names variable="editor" delimiter=", ">
       <label form="verb" text-case="lowercase"/>
-      <name delimiter=", " prefix=" " delimiter-precedes-last="always" font-variant="small-caps"/>
+      <name font-variant="normal" prefix=" " and="text" delimiter-precedes-last="never"/>
     </names>
   </macro>
   <macro name="translator">
@@ -223,12 +223,23 @@
             <if type="chapter paper-conference" match="any">
               <group>
                 <text term="in" text-case="lowercase" prefix=", "/>
-                <group delimiter=", " prefix=" ">
-                  <text macro="editor-short"/>
-                  <text macro="book-author"/>
-                  <text variable="container-title" font-style="italic"/>
-                </group>
-                <text macro="volume" prefix=", "/>
+                <choose>
+                  <if match="any" variable="container-author">
+	                <group delimiter=", " prefix=" ">
+	                  <text macro="book-author"/>
+	                  <text variable="container-title" font-style="italic"/>
+	                  <text macro="volume"/>
+                      		<text macro="editor"/>
+	                </group>
+			 </if>
+	                  <else>
+	                    <group delimiter=", " prefix=" ">
+	                      <text macro="editor-short"/>
+	                      <text variable="container-title" font-style="italic"/>
+	                      <text macro="volume" prefix=", "/>
+	                    </group>
+	                  </else>
+	                </choose>	                
                 <group prefix=" (" suffix=")" delimiter=" ">
                   <text variable="collection-title"/>
                   <text variable="collection-number"/>
@@ -300,12 +311,23 @@
         <if type="chapter paper-conference" match="any">
           <group>
             <text term="in" text-case="lowercase" prefix=", "/>
-            <group delimiter=", " prefix=" ">
-              <text macro="editor-short"/>
-              <text macro="book-author"/>
-              <text variable="container-title" font-style="italic"/>
-            </group>
-            <text macro="volume" prefix=", "/>
+            <choose>
+              <if match="any" variable="container-author">
+                <group delimiter=", " prefix=" ">
+                  <text macro="book-author"/>
+                  <text variable="container-title" font-style="italic"/>
+                  <text macro="volume"/>
+                  <text macro="editor"/>
+                </group>
+              </if>
+              <else>
+                <group delimiter=", " prefix=" ">
+                  <text macro="editor-short"/>
+                  <text variable="container-title" font-style="italic"/>
+                  <text macro="volume"/>
+                </group>
+              </else>
+            </choose>
             <group prefix=" (" suffix=")" delimiter=" ">
               <text variable="collection-title"/>
               <text variable="collection-number"/>
